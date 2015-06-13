@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+<script type="text/javascript">
+var client = new WebTorrent();
+var magnetUri = 'magnet:?xt=urn:btih:ea974aa1432b16c764da618453cebcff7812eaad';
+
+console.log('LOADED');
+
+client.add(magnetUri, function (torrent) {
+  // Got torrent metadata!
+  console.log('Torrent info hash:', torrent.infoHash);
+
+  // Let's say the first file is a webm (vp8) or mp4 (h264) video...
+  var file = torrent.files[0];
+
+  var video = document.createElement('video');
+  video.controls = true;
+  document.body.appendChild(video);
+  // Create a video element
+
+  // Stream the video into the video tag
+  file.createReadStream().pipe(video);
+})</script>
+</body>
+</html>
